@@ -340,10 +340,37 @@ sed "${MY_ARGS[@]}" "$file"
 * Always quote strings containing variables, command substitutions, spaces or
 shell meta characters, unless careful unquoted expansion is required.
 * Single quote any string that does not require expansion.
-* You can quote literal integers. (What's your [problem](https://google.github.io/styleguide/shell.xml?showone=Quoting#Quoting) Google?)
+* You can quote literal integers. (What's your 
+[problem](https://google.github.io/styleguide/shell.xml?showone=Quoting#Quoting) Google?)
 * Unsure if it should be quoted?  **It should**
 
 ## Features and Bugs
+
+### Listing Files
+
+You should never [parse ls](http://mywiki.wooledge.org/ParsingLs).  So why are you doing it 
+[Google](https://google.github.io/styleguide/shell.xml?showone=Variable_expansion#Variable_expansion)?
+
+``` bash
+# Incorrect -- and unsafe
+for f in $(ls); do
+        ...
+done
+
+# Incorrect -- and unsafe
+for f in *; do
+        ...
+done
+
+# Correct
+for f in ./*; do
+        if [[ -f "$f" ]]; then
+                ...
+        else
+                echo.error "Error message"
+        fi
+done
+```
 
 ### Command Substitution
 

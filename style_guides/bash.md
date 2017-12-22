@@ -85,9 +85,18 @@ builtin command.
 
 Your hash bang (shebang) should be written as follows:
 
-[shebang][space][intepreter][space][argument|-]
+>[shebang][space][intepreter][space][argument|-]
 
-`#! /usr/bin/env bash -`
+``` bash
+# Incorrect
+#!/bin/bash
+
+# Correct
+#! /bin/bash -
+
+# Even More Correct
+#! /usr/bin/env bash -
+```
 
 [Why?](https://unix.stackexchange.com/questions/351729/why-the-in-the-bin-sh-shebang)
 

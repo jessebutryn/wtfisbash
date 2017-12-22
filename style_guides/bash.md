@@ -13,9 +13,35 @@ This guide is based on Google's [Shell Style Guide](https://google.github.io/sty
 ## Table of Contents
 
 1. [Intro](#intro)
-  1. [Why Bash?](#why-bash?)
+  * [Why Bash?](#why-bash)
 1. [Files](#files)
-  1. [Naming](#naming)
+  * [Naming](#naming)
+  * [Extensions](#extensions)
+1. [Environment](#environment)
+  * [Hash Bang](#hash-bang)
+  * [Errors](#errors)
+1. [Comments](#comments)
+  * [File Header](#file-header)
+  * [Functions](#functions)
+  * [Implementation](#implementation)
+1. [Formatting](#formatting)
+  * [Indentation](#indentation)
+  * [Column Width](#column-width)
+  * [Pipelines](#pipelines)
+  * [Loops and Constructs](#loops-and-constructs)
+  * [Case](#case)
+  * [Variable Expansion](#variable-expansion)
+  * [Quoting](#quoting)
+1. [Features and Bugs](#features-and-bugs)
+  * [Command Substitution](#command-substitution)
+  * [Tests](#tests)
+    * [Strings](#strings)
+  * [Wildcard Expansion](#wildcard-expansion)
+  * [Eval](#eval)
+1. [Naming Conventions](#naming-conventions)
+  * [Functions](#functions)
+  * [Variables](#variables)
+
 
 ## Intro
 
@@ -54,6 +80,18 @@ builtin command.
 * Libraries must have a `.sh` extension and should not be executable.
 
 ## Environment
+
+### Hash Bang
+
+Your hash bang (shebang) should be written as follows:
+[shebang][space][intepreter][space][argument|-]
+`#! /usr/bin/env bash -`
+
+[Why?](https://unix.stackexchange.com/questions/351729/why-the-in-the-bin-sh-shebang)
+
+Whenever possible (always?) you should use env rather than point to a specific
+bash.  `/bin/bash` does not exist on all systems.  There is no need to guess
+where someone's bash will be when `env` can find it for you.
 
 ### Errors
 
@@ -151,7 +189,7 @@ functionality issues.
 For all new files, you should adhere to the below guidelines:
 (Or not...I mean it probably doesn't really matter right?)
 
-### Identation
+### Indentation
 
 Regardless of what you call it, you will use tabs.  If you want to change the
 definition of tabs to something like "2 spaces" you are still using "tabs", you
@@ -344,5 +382,84 @@ fi
 Always use a path with wildcards.  A full path is preferred, but at the very
 least you should use a relative path.  Additionally, if possible, you should
 add as many patterns to match as you can to narrow the potential results.
+
+As filenames could start with `-` or even more malicious patterns, whenever you
+are using wildcard expansion to iterate over filenames you should terminate
+your command arguments with `--` to ensure nothing that follows will be
+interpretted as a switch.
+
+``` bash
+# Pretend your directory contains:
+$ ls -l
+total 0
+-rw-r--r--  1 jessebutryn  staff   0 Dec 22 14:05 -f
+-rw-r--r--  1 jessebutryn  staff   0 Dec 22 14:05 -r
+drwxr-xr-x  2 jessebutryn  staff  64 Dec 22 14:05 somedir
+-rw-r--r--  1 jessebutryn  staff   0 Dec 22 14:05 somefile
+
+# Now you execute:
+$ rm -v *
+somedir
+somefile
+# You have executed:
+# rm -v -f -r somedir
+# rm -v -f -r somefile
+
+# What you should do instead:
+$ rm -v -- ./*
+./-f
+./-r
+rm: ./somedir: is a directory
+./somefile
+```
+
+### Eval
+
+Why would it exist if it didn't have a use right?
+
+_Meh_
+
+Avoid it at all costs.
+
+## Naming Conventions
+
+### Functions
+
+Function names should be all lowercase characters as they emulate commands,
+which are traditionally represented in lowercase letters.  Multi-word functions
+should be deliminated by a dot `.` rather than an underscore `_` to avoid confusion
+with variables.
+
+### Variables
+
+* Environmental, Shell, and Global variables should be represented in uppercase
+characters only. 
+* Local and loop variables should be represented in lowercase characters only.
+* Multiple word variables should be deliminated by an underscore `_`.
+
+If possible you should prefix all variables with a string representing the
+script/function in order to avoid conflicts with existing variables.
+
+Example:
+``` bash
+# Global variables
+MSHARE_LOG='/path/to/log'
+
+# Local variables
+my.func () {
+        local myfunc_var="$1"
+}
+
+# Loop variables
+for ip in "${MY_IPS[@]}"; do
+        something with "$ip"
+done
+```
+
+
+
+
+
+
 
 

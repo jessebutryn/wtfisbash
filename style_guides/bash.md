@@ -13,10 +13,10 @@ This guide is based on Google's [Shell Style Guide](https://google.github.io/sty
 ## Table of Contents
 
 1. [Intro](#intro)
-  * [Why Bash?](#why-bash)
+  1. [Why Bash?](#why-bash)
 1. [Files](#files)
-  * [Naming](#naming)
-  * [Extensions](#extensions)
+  1. [Naming](#naming)
+  1. [Extensions](#extensions)
 1. [Environment](#environment)
   * [Hash Bang](#hash-bang)
   * [Errors](#errors)

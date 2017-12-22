@@ -71,7 +71,7 @@ other shells can't offer.
 ### Naming
 
 While ultimately impossible to know for sure, extreme caution should be used to
-prevent using the same name as *ANY* external command and/or _especially_ any
+prevent using the same name as **ANY** external command and/or *especially* any
 builtin command.
 
 ### Extensions
@@ -84,7 +84,9 @@ builtin command.
 ### Hash Bang
 
 Your hash bang (shebang) should be written as follows:
+
 [shebang][space][intepreter][space][argument|-]
+
 `#! /usr/bin/env bash -`
 
 [Why?](https://unix.stackexchange.com/questions/351729/why-the-in-the-bin-sh-shebang)
@@ -119,7 +121,7 @@ following information:
   * Yes -- your work is copywritten, as soon as you write it.
     [source](http://www.copyrightkids.org/copyrightbasics.html)
 * Description of intent
-  * What does this file do? ...or at least what _should_ it do?
+  * What does this file do? ...or at least what *should* it do?
 * The Author's name
   * Accountability
 * Table of Contents
@@ -181,7 +183,7 @@ comments to any parts of your code that have any level of complexity to them.
 
 ## Formatting
 
-If you are modifying someone elses file, *use their formatting*! 
+If you are modifying someone elses file, **use their formatting**! 
 
 This is, of course, unless their formatting will lead to security and/or
 functionality issues.
@@ -199,7 +201,7 @@ accomplish this goal.  The word tab, referring to tabulate, existed long before
 any tab key ever existed.  So when you press space twice to indent your data,
 you are tabulating it.  :)
 
-That being said, you should use *TABS* and they should be defined as 8 spaces.
+That being said, you should use **TABS** and they should be defined as 8 spaces.
 
 ### Column Width
 
@@ -295,11 +297,11 @@ esac
 ### Variable Expansion
 
 Quote your variables.  Think it's not necessary to quote your variables?
-*Quote them anyway.*
+**Quote them anyway.**
 
 The only time variables should be unquotted is when you *KNOW* they *CANNOT*
 be quoted.  If you run into this situation, chances are you should use an array
-and _quote it_.
+and *quote it*.
 
 
 ### Quoting
@@ -308,7 +310,7 @@ and _quote it_.
 shell meta characters, unless careful unquoted expansion is required.
 * Single quote any string that does not require expansion.
 * You can quote literal integers. (What's your [problem](https://google.github.io/styleguide/shell.xml?showone=Quoting#Quoting) Google?)
-* Unsure if it should be quoted?  *It should*
+* Unsure if it should be quoted?  **It should**
 
 ## Features and Bugs
 

@@ -312,6 +312,28 @@ The only time variables should be unquotted is when you **KNOW** they **CANNOT**
 be quoted.  If you run into this situation, chances are you should use an array
 and *quote it*.
 
+Need to pass arguments through a variable?  Use an array:
+
+``` bash
+# Incorrect
+MY_ARGS="
+-e "s|\*\*jobname\*\*|$jobname|g"
+-e "s|\*\*hostname\*\*|$hostname|g"
+-e "s|\*\*hostport\*\*|$hostport|g"
+-e "s|\*\*rmttrailname\*\*|$rmttrailname|g"
+"
+sed $MY_ARGS $file
+
+# Correct
+declare -a MY_ARGS
+MY_ARGS+=(
+        -e "s|\*\*jobname\*\*|$jobname|g"
+        -e "s|\*\*hostname\*\*|$hostname|g"
+        -e "s|\*\*hostport\*\*|$hostport|g"
+        -e "s|\*\*rmttrailname\*\*|$rmttrailname|g"
+)
+sed "${MY_ARGS[@]}" "$file"
+```
 
 ### Quoting
 

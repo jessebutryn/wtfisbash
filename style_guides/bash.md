@@ -214,10 +214,10 @@ That being said, you should use **TABS** and they should be defined as 8 spaces.
 
 ### Column Width
 
-If you have to write strings that are longer than 80 characters, this should be
-done with a here document or an embedded newline if possible. Literal strings
-that have to be longer than 80 chars and can't sensibly be split are ok, but
-it's strongly preferred to find a way to make it shorter.
+You know what?  It's no longer 1984...if you want your columns to be more than 80 characters, go for it!
+If you come across someone still using 640x480 screen resolution...stop sharing your scripts with them.
+
+I say go ahead, get crazy, and limit your columns to 120 characters...we can live like kings!
 
 ### Pipelines
 
@@ -283,7 +283,7 @@ while getopts 'abf:v' flag; do
     b) bflag='true' ;;
     f) files="${OPTARG}" ;;
     v) verbose='true' ;;
-    *) error "Unexpected option ${flag}" ;;
+    *) echo.error "Unexpected option ${flag}" ;;
   esac
 done
 
@@ -308,7 +308,7 @@ esac
 Quote your variables.  Think it's not necessary to quote your variables?
 **Quote them anyway.**
 
-The only time variables should be unquotted is when you *KNOW* they *CANNOT*
+The only time variables should be unquotted is when you **KNOW** they **CANNOT**
 be quoted.  If you run into this situation, chances are you should use an array
 and *quote it*.
 

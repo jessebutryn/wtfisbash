@@ -85,7 +85,7 @@ builtin command.
 
 Your hash bang (shebang) should be written as follows:
 
->[shebang][space][intepreter][space][argument|-]
+`[shebang][space][intepreter][space][argument|-]`
 
 ``` bash
 # Incorrect

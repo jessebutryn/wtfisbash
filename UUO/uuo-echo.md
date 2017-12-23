@@ -2,7 +2,7 @@
 
 There is almost no situation in which `echo` _should_ be used within command substitution.
 
-* Expand Variable
+* **Expand Variable**
 
 ``` bash
 mv "$(echo "$file1")" "$(echo "$file2")"
@@ -14,7 +14,7 @@ This is an inefficiency as it creates uneccessary processes and the shell is mor
 mv "$file1" "$file2"
 ```
 
-* Redirecting Variables
+* **Redirecting Variables**
 
 ``` bash
 echo "$VAR" | grep 'string'
@@ -34,7 +34,7 @@ sed 's/string1/string2/' <<<"$VAR"
 awk '{print $1}' <<<"$VAR"
 ```
 
-* Adding Newlines
+* **Adding Newlines**
 
 ``` bash
 echo "I have some text that should be followed by an empty line"

@@ -9,7 +9,8 @@ certainly forget.
 This is just a list of my favorite places to obtain information about bash scripting
 
 * Bash Reference Manual - [link](https://www.gnu.org/software/bash/manual/bash.html)
-  * This is *the* authoritave reference for anything bash related.  They made it afterall.
+  * This is *the* authoritave reference for anything bash related.  They made it afterall.  It is also extremely easy
+  to ready from start to finish.
 * Bash Pitfalls - [link](http://mywiki.wooledge.org/BashPitfalls) 
   * You should read this entire page twice before writing any script that will be run in production.
 * Advanced Bash-Scripting Guide - [link](http://tldp.org/LDP/abs/html/)

@@ -1,0 +1,14 @@
+# alias
+#
+# This is a collection of aliases that I like.
+#
+# 
+# Coming from Windows?
+alias cls='clear'
+alias cd..='cd ..'
+#
+#
+# Miscellaneous
+alias ll='ls -laghFG'
+alias l='ls -laghFG'
+alias reload='source ~/.bash_profile'

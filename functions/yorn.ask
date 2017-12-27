@@ -1,15 +1,20 @@
-# yorn.ask
+#! /usr/bin/env bash -
+#################################################
+# Name:         yorn.ask
+# Author:       Jesse_b
+# 
+# Description:  This function asks yes or no questions and forces a y or n response
 #
-# This function asks yes or no questions and forces a y or n response
-# Usage: yorn.ask "This is my question"
+# Dependencies: 
+#	-> N/A
 #
-# This function will return 0 for yes and 1 for no
+# Usage:        $ yorn.ask "Would you like to continue?"
 #
 yorn.ask () {
-        read -p "$* [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
+        read -p "$@ [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
 	while [[ -z "$YORN_RESP" ]]; do
 		echo "Please respond only with: y or n"
-		read -p "$* [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
+		read -p "$@ [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
 	done
 	[[ "$YORN_RESP" == 'Y' || "$YORN_RESP" == 'y' ]] && return 0 || return 1
 }

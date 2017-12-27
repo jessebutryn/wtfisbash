@@ -1,8 +1,15 @@
-# echo.error
+#! /usr/bin/env bash -
+#################################################
+# Name:         echo.error
+# Author:       Jesse_b
+# 
+# Description:  This function passes everything to STDOUT and colors it RED.
 #
-# This function passes everything to STDOUT and colors it RED.
+# Dependencies: 
+#	-> N/A
 #
-# This function can be used with the -e switch to allow interpretation of backslash escapes
+# Usage:        $ echo.error "Error! Something happened!"
+#				$ echo.error -e "Error!\nSomething happened!"
 #
 echo.error () {
 	TXT_RED="$(tput setaf 1)"

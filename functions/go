@@ -1,10 +1,16 @@
-# go
+#! /usr/bin/env bash -
+#################################################
+# Name:         go
+# Author:       Jesse_b
+# 
+# Description:  This function maintains an associative array containing common directories I use.  I can then call this
+#				function as a method of quickly changing between directories.
 #
-# This function maintains an associative array containing common directories I use.  I can then call this function
-# as a method of quickly changing between directories.
+# Dependencies: 
+#	-> bash v4.0 or later
+#   -> Must configure goARR array
 #
-# This function can be run with the directory "nickname" as an argument to cd directly to it, or with no arguments
-# to generate a list of directories.
+# Usage:        $ go [DIRECTORY]
 #
 go () {
 	declare -A local goARR=(

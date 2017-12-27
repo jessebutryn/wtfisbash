@@ -42,7 +42,6 @@ This guide is based on Google's [Shell Style Guide](https://google.github.io/sty
   * [Functions](#functions)
   * [Variables](#variables)
 
-
 ## Intro
 
 ### Why bash?
@@ -85,7 +84,7 @@ builtin command.
 
 Your hash bang (shebang) should be written as follows:
 
-`[shebang][space][intepreter][space][argument|-]`
+`[shebang][space][interpreter][space][argument|-]`
 
 ``` bash
 # Incorrect
@@ -109,6 +108,7 @@ where someone's bash will be when `env` can find it for you.
 All error messages should be directed to `STDERR`.
 
 The following function is recommended for handling error messages:
+
 ``` bash
 echo.error () {
 	TXT_RED="$(tput setaf 1)"
@@ -133,6 +133,7 @@ to ensure that every aspect of your script is explained in detail.
 
 Each file should start with a standardized header containing at least the
 following information:
+
 * Copyright Notice 
   * Yes -- your work is copywritten, as soon as you write it.
     [source](http://www.copyrightkids.org/copyrightbasics.html)
@@ -145,6 +146,7 @@ following information:
   * Some examples of these sections: variables, functions, switches, run
 
 Example:
+
 ``` bash
 #! /usr/bin/env bash -
 #set -x
@@ -158,7 +160,7 @@ Example:
 #
 # 12/20/2017    -       Rewrite
 # 12/21/2017	-	Made the error messages for failure more verbose. is.validexp was using an
-#			invalid comparison operator.
+#				invalid comparison operator.
 #
 ##############################
 # Table of Contents
@@ -179,15 +181,16 @@ function is.  Additionally if the function is complex, the comment should
 include at least some basic usage information.
 
 Example:
+
 ``` bash
 some_func () { # If your comment is short it can be added here
-        ...
+	...
 }
 
 some_func () {
-        # In the event that your comment will take multiple lines, it is
-        # preferred to add them to the start of your function like this.
-        ...
+	# In the event that your comment will take multiple lines, it is
+	# preferred to add them to the start of your function like this.
+	...
 }
 ```
 
@@ -199,7 +202,7 @@ comments to any parts of your code that have any level of complexity to them.
 
 ## Formatting
 
-If you are modifying someone elses file, **use their formatting**! 
+If you are modifying someone elses file, **use their formatting**!
 
 This is, of course, unless their formatting will lead to security and/or
 functionality issues.
@@ -235,15 +238,16 @@ the statement should be split onto it's own line and indented below the start
 of the command.
 
 Example:
+
 ``` bash
 # Fits on one line
 command1 | command2
 
 # Needs multiple lines
 command1 \
-        | command2 \
-        | command3 \
-        | command4
+	| command2 \
+	| command3 \
+	| command4
 ```
 
 ### Loops and Constructs
@@ -251,18 +255,18 @@ command1 \
 When building a loop or if/then construct one should include `; then` & `; do`
 on the same line as `if`/`for`/`while`/`until`.
 
-Although functionally there is no difference, this method is shorter, therefore
-why is anyone still debating this?
+Although functionally there is no difference, this method is shorter.
 
 Example:
+
 ``` bash
-# Ugly
+# Long
 for f in "$HOME"/*.txt
 do
         ...
 done
 
-# So much better
+# Short
 if [[ condition ]]; then
         ...
 fi
@@ -273,10 +277,8 @@ fi
 * Expressions should be indented one tab from the case/esac
 * One-line commands can be placed on the same line as the expression
   * One space is required after the close parenthesis and before the `;;`
-* Multi-line commands should start one line after and indented one tab from
-their expression.
-* All case statements should include the `*)` expression as a catch all for
-unexpected expressions
+* Multi-line commands should start one line after and indented one tab from their expression.
+* All case statements should include the `*)` expression as a catch all for unexpected expressions
 
 ``` bash
 # One-liners
@@ -296,17 +298,17 @@ done
 
 # Multi-liners
 case "$expression" in
-        match1)
-                command1
-                command2
-                ;;
-        match2)
-                command1
-                command2
-                ;;
-        *)
-                echo.error "Unexpected expression $expression"
-                ;;
+	match1)
+		command1
+		command2
+		;;
+	match2)
+		command1
+		command2
+		;;
+	*)
+		echo.error "Unexpected expression $expression"
+		;;
 esac
 ```
 
@@ -334,21 +336,19 @@ sed $MY_ARGS $file
 # Correct
 declare -a MY_ARGS
 MY_ARGS+=(
-        -e "s|\*\*jobname\*\*|$jobname|g"
-        -e "s|\*\*hostname\*\*|$hostname|g"
-        -e "s|\*\*hostport\*\*|$hostport|g"
-        -e "s|\*\*rmttrailname\*\*|$rmttrailname|g"
+	-e "s|\*\*jobname\*\*|$jobname|g"
+	-e "s|\*\*hostname\*\*|$hostname|g"
+	-e "s|\*\*hostport\*\*|$hostport|g"
+	-e "s|\*\*rmttrailname\*\*|$rmttrailname|g"
 )
 sed "${MY_ARGS[@]}" "$file"
 ```
 
 ### Quoting
 
-* Always quote strings containing variables, command substitutions, spaces or
-shell meta characters, unless careful unquoted expansion is required.
+* Always quote strings containing variables, command substitutions, spaces or shell meta characters, unless careful unquoted expansion is required.
 * Single quote any string that does not require expansion.
-* You can quote literal integers. (What's your 
-[problem](https://google.github.io/styleguide/shell.xml?showone=Quoting#Quoting) Google?)
+* You can quote literal integers. (What's your [problem](https://google.github.io/styleguide/shell.xml?showone=Quoting#Quoting) Google?)
 * Unsure if it should be quoted?  **It should**
 
 ## Features and Bugs
@@ -361,21 +361,21 @@ You should never [parse ls](http://mywiki.wooledge.org/ParsingLs).  So why are y
 ``` bash
 # Incorrect -- and unsafe
 for f in $(ls); do
-        ...
+    ...
 done
 
 # Incorrect -- and unsafe
 for f in *; do
-        ...
+    ...
 done
 
 # Correct
 for f in ./*; do
-        if [[ -f "$f" ]]; then
-                ...
-        else
-                echo.error "Error message"
-        fi
+	if [[ -f "$f" ]]; then
+		...
+	else
+		echo.error "Error message"
+	fi
 done
 ```
 
@@ -386,6 +386,7 @@ substitution `$( ... )`.  Therefore we should simply forget that backtick
 substitution ever existed and stop using it.
 
 Example:
+
 ``` bash
 # Don't
 var=`...`
@@ -415,32 +416,32 @@ Example:
 ``` bash
 # Not Okay
 if [[ "${my_var}x" == "a stringx" ]]; then
-        ...
+    ...
 fi
 
 # Okay
 if [[ "$my_var" == "a string" ]]; then
-        ...
+    ...
 fi
 
 # Not Okay
 if [[ "$my_var" == "" ]]; then
-        ...
+    ...
 fi
 
 # Okay
 if [[ -z "$my_var" ]]; then
-        ...
+    ...
 fi
 
 # Not Okay
 if [[ "$my_var" ]]; then
-        ...
+    ...
 fi
 
 # Okay
 if [[ -n "$my_var" ]]; then
-        ...
+    ...
 fi
 ```
 
@@ -453,7 +454,7 @@ add as many patterns to match as you can to narrow the potential results.
 As filenames could start with `-` or even more malicious patterns, whenever you
 are using wildcard expansion to iterate over filenames you should terminate
 your command arguments with `--` to ensure nothing that follows will be
-interpretted as a switch.
+interpreted as a switch.
 
 ``` bash
 # Pretend your directory contains:
@@ -499,27 +500,27 @@ with variables.
 
 ### Variables
 
-* Environmental, Shell, and Global variables should be represented in uppercase
-characters only. 
+* Environmental, Shell, and Global variables should be represented in uppercase characters only.
 * Local and loop variables should be represented in lowercase characters only.
-* Multiple word variables should be deliminated by an underscore `_`.
+* Multiple word variables should be delimited by an underscore `_`.
 
 If possible you should prefix all variables with a string representing the
 script/function in order to avoid conflicts with existing variables.
 
 Example:
+
 ``` bash
 # Global variables
 MSHARE_LOG='/path/to/log'
 
 # Local variables
 my.func () {
-        local myfunc_var="$1"
+    local myfunc_var="$1"
 }
 
 # Loop variables
 for ip in "${MY_IPS[@]}"; do
-        something with "$ip"
+    something with "$ip"
 done
 ```
 

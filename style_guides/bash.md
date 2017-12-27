@@ -111,7 +111,14 @@ All error messages should be directed to `STDERR`.
 The following function is recommended for handling error messages:
 ``` bash
 echo.error () {
-        echo "[$(date +'%Y%m%dT%H%M%S%Z')]: $@" >&2
+	TXT_RED="$(tput setaf 1)"
+	TXT_RST="$(tput sgr0)"
+	if [[ "$1" == '-e' ]]; then
+		shift
+		echo -e "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+	else
+		echo "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+	fi
 }
 ```
 

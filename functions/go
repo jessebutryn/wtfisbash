@@ -1,0 +1,44 @@
+# go
+#
+# This function maintains an associative array containing common directories I use.  I can then call this function
+# as a method of quickly changing between directories.
+#
+# This function can be run with the directory "nickname" as an argument to cd directly to it, or with no arguments
+# to generate a list of directories.
+#
+go () {
+	declare -A local goARR=(
+		[tools]='/Users/jessebutryn/Documents/scripts/shell/NOCTools'
+		[tmp]='/Users/jessebutryn/tmp'
+		[wtf]='/Users/jessebutryn/Documents/Reference/wtfisbash'
+		[pics]='/Users/jessebutryn/Pictures'
+		[scripts]='/Users/jessebutryn/Documents/scripts'
+	)
+	PS3='Select a directory: '
+	if [[ -z "$1" ]]; then
+		echo "Where do you want to go?"
+		select index in "${!goARR[@]}" Exit; do
+			case "$index" in
+				Exit)
+					echo "Goodbye"
+					return 0 && break 2
+					;;
+				*)
+					cd "${goARR[$index]}"
+					break
+					;;
+			esac
+		done
+	else
+		shopt -s nocasematch
+		case "$1" in
+			tools) 		cd "${goARR[tools]}";;
+			tmp|temp) 	cd "${goARR[tmp]}";;
+			wtf*)		cd "${goARR[wtf]}";;
+			pic*)		cd "${goARR[pics]}";;
+			scripts)	cd "${goARR[scripts]}";;
+			*)			echo "$1 is not a valid go option"; return 1;;
+		esac
+		shopt -u nocasematch
+	fi
+}

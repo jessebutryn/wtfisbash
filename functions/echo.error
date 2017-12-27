@@ -1,0 +1,16 @@
+# echo.error
+#
+# This function passes everything to STDOUT and colors it RED.
+#
+# This function can be used with the -e switch to allow interpretation of backslash escapes
+#
+echo.error () {
+	TXT_RED="$(tput setaf 1)"
+	TXT_RST="$(tput sgr0)"
+	if [[ "$1" == '-e' ]]; then
+		shift
+		echo -e "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+	else
+		echo "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+	fi
+}

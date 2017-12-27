@@ -22,7 +22,7 @@ This is just a list of my favorite places to obtain information about bash scrip
   * While `awk` is a separate programming language altogether, being proficient with it's use will certainly improve
   the functionality and performance of your bash scripts.
 * [U&L Stack Exchange](https://unix.stackexchange.com/)
-  * This site has become the default catch-all for bash related questions.  While they can also be posed on
+  * This site has become the default catch-all for bash related questions.  While they can also be posted on
   stack overflow, I believe that U&L is a much better resource for bash/shell scripting.
 
 ## Sources

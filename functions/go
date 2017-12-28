@@ -4,11 +4,11 @@
 # Author:       Jesse_b
 # 
 # Description:  This function maintains an associative array containing common directories I use.  I can then call this
-#				function as a method of quickly changing between directories.
+#		function as a method of quickly changing between directories.
 #
 # Dependencies: 
 #	-> bash v4.0 or later
-#   -> Must configure goARR array
+#   	-> Must configure goARR array
 #
 # Usage:        $ go [DIRECTORY]
 #

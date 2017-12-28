@@ -1,0 +1,33 @@
+#! /usr/bin/env bash -
+#################################################
+# Name:         gitacp
+# Author:       Jesse_b
+# 
+# Description:  gitacp (Add, Commit, Push) will take a file or list of files as an argument and
+#               will perform a git add, git diff, git commit, and git push.
+#
+# Dependencies: 
+#	-> git
+#
+# Usage:        $ gitacp ./README.md
+#
+gitacp () {
+	if [[ -z "$1" ]]; then
+		echo.error 
+	else
+		declare -a GIT_FILES+=("$@")
+	fi
+	for file in "${GIT_FILES[@]}"; do
+		git add "$file" && continue
+		echo "Failed to add $file"
+	done
+	git diff --stat --cached
+	echo
+	read -rp "What is your commit message? " GIT_COMMIT
+	echo
+	if ( git commit -m "$GIT_COMMIT" ); then
+		git push || echo "Error! Failed to push."
+	else
+		echo "Error! Failed to commit."
+	fi
+}

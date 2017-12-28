@@ -9,7 +9,7 @@
 #	-> N/A
 #
 # Usage:        $ echo.error "Error! Something happened!"
-#				$ echo.error -e "Error!\nSomething happened!"
+#		$ echo.error -e "Error!\nSomething happened!"
 #
 echo.error () {
 	TXT_RED="$(tput setaf 1)"

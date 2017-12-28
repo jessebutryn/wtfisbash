@@ -15,4 +15,3 @@ but why does there have to be so much death?
   * Send `kill -2`
   * Send `kill -1`
   * If still broken, remove the binary as it is not functional
-

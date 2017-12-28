@@ -111,7 +111,7 @@ The following function is recommended for handling error messages:
 
 ``` bash
 echo.error () {
-	TXT_RED="$(tput setaf 1)"
+  TXT_RED="$(tput setaf 1)"
 	TXT_RST="$(tput sgr0)"
 	if [[ "$1" == '-e' ]]; then
 		shift

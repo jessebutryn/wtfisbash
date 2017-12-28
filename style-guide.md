@@ -233,7 +233,7 @@ I say go ahead, get crazy, and limit your columns to 120 characters...we can liv
 
 If the entirety of a pipeline fits on a single line it should be expressed on
 a single line.
-However, if a pipeline will not fit on a signle line, then every pipe within
+However, if a pipeline will not fit on a single line, then every pipe within
 the statement should be split onto it's own line and indented below the start
 of the command.
 
@@ -314,10 +314,9 @@ esac
 
 ### Variable Expansion
 
-Quote your variables.  Think it's not necessary to quote your variables?
-**Quote them anyway.**
+Quote your variables.
 
-The only time variables should be unquotted is when you **KNOW** they **CANNOT**
+The only time variables should be unquoted is when you **KNOW** they **CANNOT**
 be quoted.  If you run into this situation, chances are you should use an array
 and *quote it*.
 
@@ -361,12 +360,12 @@ You should never [parse ls](http://mywiki.wooledge.org/ParsingLs).  So why are y
 ``` bash
 # Incorrect -- and unsafe
 for f in $(ls); do
-    ...
+	...
 done
 
 # Incorrect -- and unsafe
 for f in *; do
-    ...
+	...
 done
 
 # Correct
@@ -382,8 +381,7 @@ done
 ### Command Substitution
 
 Backticks ``...`` have been completely and entirely superceded by subshell
-substitution `$( ... )`.  Therefore we should simply forget that backtick
-substitution ever existed and stop using it.
+substitution `$( ... )`.
 
 Example:
 
@@ -407,12 +405,13 @@ Additionally the `[[` test construct supports limited regex pattern matching.
 
 #### Strings
 
-Since we are using the bash test `[[` and not that crappy old shell test `[`,
+Since we are using the bash test `[[` and not that old shell test `[`,
 we can take advantage of bash's ability to deal with empty strings.  Because of
 this you _should not_ use filler characters, but instead use bash string
 comparison operators: _=_, _==_, _!=_, _<_, _>_, _-z_, _-n_
 
 Example:
+
 ``` bash
 # Not Okay
 if [[ "${my_var}x" == "a stringx" ]]; then
@@ -495,7 +494,7 @@ Avoid it at all costs.
 
 Function names should be all lowercase characters as they emulate commands,
 which are traditionally represented in lowercase letters.  Multi-word functions
-should be deliminated by a dot `.` rather than an underscore `_` to avoid confusion
+should be delimited by a dot `.` rather than an underscore `_` to avoid confusion
 with variables.
 
 ### Variables
@@ -515,19 +514,11 @@ MSHARE_LOG='/path/to/log'
 
 # Local variables
 my.func () {
-    local myfunc_var="$1"
+	local myfunc_var="$1"
 }
 
 # Loop variables
 for ip in "${MY_IPS[@]}"; do
-    something with "$ip"
+	something with "$ip"
 done
 ```
-
-
-
-
-
-
-
-

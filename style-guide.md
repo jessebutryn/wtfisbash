@@ -387,7 +387,7 @@ Example:
 
 ``` bash
 # Don't
-var=`...`
+var=``...``
 
 # Do
 var="$(...)"

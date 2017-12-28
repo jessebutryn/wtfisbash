@@ -380,7 +380,7 @@ done
 
 ### Command Substitution
 
-Backticks \`...\` have been completely and entirely superceded by subshell
+Backticks `\`...\`` have been completely and entirely superceded by subshell
 substitution `$( ... )`.
 
 Example:

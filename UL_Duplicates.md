@@ -7,7 +7,7 @@ Here I will keep a list of common duplicate questions from U&L Stack Exchange fo
 * [Why the “-” in the “#! /bin/sh -” shebang?](https://unix.stackexchange.com/q/351729/237982)
 * [#!/usr/bin/env bash vs #!/bin/bash](https://unix.stackexchange.com/q/29608/237982)
 * [Delete a file starting with -](https://unix.stackexchange.com/q/1519/237982)
-* [``...`` vs $(...)](https://unix.stackexchange.com/q/5778/237982)
+* [````...```` vs $(...)](https://unix.stackexchange.com/q/5778/237982)
 * [Difference between Login Shell and Non-Login Shell?](https://unix.stackexchange.com/q/38175/237982)
 * [Get exit status of process that's piped to another](https://unix.stackexchange.com/q/14270/237982)
 * [How to permanently set environmental variables](https://unix.stackexchange.com/q/117467/237982)

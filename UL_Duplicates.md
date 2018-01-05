@@ -34,9 +34,6 @@
 * [Why doesn't my Bash script recognize aliases?](https://unix.stackexchange.com/q/1496/237982)
 * [How can I get the size of a file in a bash script?](https://unix.stackexchange.com/q/16640/237982)
 
-### ksh
-
-
 ## command line
 
 * [du is different than df](https://unix.stackexchange.com/q/17510/22222)

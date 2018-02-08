@@ -245,9 +245,9 @@ command1 | command2
 
 # Needs multiple lines
 command1 \
-	| command2 \
-	| command3 \
-	| command4
+  | command2 \
+  | command3 \
+  | command4
 ```
 
 ### Loops and Constructs

@@ -112,13 +112,13 @@ The following function is recommended for handling error messages:
 ``` bash
 echo.error () {
   TXT_RED="$(tput setaf 1)"
-	TXT_RST="$(tput sgr0)"
-	if [[ "$1" == '-e' ]]; then
-		shift
-		echo -e "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
-	else
-		echo "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
-	fi
+  TXT_RST="$(tput sgr0)"
+  if [[ "$1" == '-e' ]]; then
+    shift
+    echo -e "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+  else
+    echo "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+  fi
 }
 ```
 
@@ -184,13 +184,13 @@ Example:
 
 ``` bash
 some_func () { # If your comment is short it can be added here
-	...
+  ...
 }
 
 some_func () {
-	# In the event that your comment will take multiple lines, it is
-	# preferred to add them to the start of your function like this.
-	...
+  # In the event that your comment will take multiple lines, it is
+  # preferred to add them to the start of your function like this.
+  ...
 }
 ```
 
@@ -220,7 +220,7 @@ accomplish this goal.  The word tab, referring to tabulate, existed long before
 any tab key ever existed.  So when you press space twice to indent your data,
 you are tabulating it.  :)
 
-That being said, you should use **TABS** and they should be defined as 8 spaces.
+That being said, you should use **TABS** and they should be defined as 4 spaces.
 
 ### Column Width
 
@@ -514,11 +514,11 @@ MSHARE_LOG='/path/to/log'
 
 # Local variables
 my.func () {
-	local myfunc_var="$1"
+  local myfunc_var="$1"
 }
 
 # Loop variables
 for ip in "${MY_IPS[@]}"; do
-	something with "$ip"
+  something with "$ip"
 done
 ```

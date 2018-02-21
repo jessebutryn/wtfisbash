@@ -1,4 +1,4 @@
-#! /usr/bin/env bash -
+#!/usr/bin/env bash
 #################################################
 # Name:         gitacp
 # Author:       Jesse_b
@@ -7,13 +7,13 @@
 #               will perform a git add, git diff, git commit, and git push.
 #
 # Dependencies: 
-#	-> git
+#	=> git
 #
 # Usage:        $ gitacp ./README.md
 #
 gitacp () {
 	if [[ -z "$1" ]]; then
-		echo.error 
+		echo "ERROR! You must specify a file to add, commit, and push."
 	else
 		declare -a GIT_FILES+=("$@")
 	fi

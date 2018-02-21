@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#################################################
+# Name:         gman
+# Author:       Jesse_b
+# 
+# Description:  gman takes a command name as an argument and will search your machine for it's man page.
+#				if no man page exists it will use the googler program to search google for it.
+#
+# Dependencies: 
+#	=> googler
+#
+# Usage:        $ gman [command]
+#
+gman () {
+	local this_command="$1"
+	( which -s "$this_command" ) || echo "ERROR! $this_command does not exist"
+	( man "$this_command" 2>/dev/null ) || googler "$this_command" "man page"
+}

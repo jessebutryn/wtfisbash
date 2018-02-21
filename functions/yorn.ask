@@ -1,4 +1,4 @@
-#! /usr/bin/env bash -
+#!/usr/bin/env bash
 #################################################
 # Name:         yorn.ask
 # Author:       Jesse_b
@@ -11,7 +11,7 @@
 # Usage:        $ yorn.ask "Would you like to continue?"
 #
 yorn.ask () {
-        read -p "$@ [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
+    read -p "$@ [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"
 	while [[ -z "$YORN_RESP" ]]; do
 		echo "Please respond only with: y or n"
 		read -p "$@ [Y/n]: " RESP && local YORN_RESP="$(echo "${RESP:0:1}" | grep -i "[YN]")"

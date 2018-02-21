@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#################################################
+# Name:         weather
+# Author:       Jesse_b
+# 
+# Description:  This function will query wttr.in for weather information
+#
+# Dependencies: 
+#	-> N/A
+#
+# Usage:	$ weather [ZIP CODE] [-a]
+#
+weather () {
+	local w_opts=
+	local w_zip=
+	while (( $# )); do
+		case $1 in
+			-a)
+				local w_opts=ALL
+			;;
+			[0-9][0-9][0-9][0-9][0-9])
+				local w_zip=$1
+			;;
+			*)
+				echo "ERROR! Unknown option: $1"
+				exit 1
+			;;
+		esac
+		shift
+	done
+	if [[ -z "$w_zip" ]]; then
+		case $MAC_LOCATION in
+			work) w_zip=80127;;
+			home) w_zip=80123;;
+			*)
+				echo "ERROR! I don't know where you want the weather for."
+				exit 1
+			;;
+		esac
+	fi
+	if [[ "$w_opts" == ALL ]]; then
+		curl -Ss "wttr.in/${w_zip}"
+	else
+		curl -Ss "wttr.in/${w_zip}" | tail -n +2 | head -n 6
+	fi
+}

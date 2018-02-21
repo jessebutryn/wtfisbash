@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#################################################
+# Name:         ascii
+# Author:       Jesse_b
+# 
+# Description:  This function prints ascii art
+#
+# Dependencies: 
+#	-> N/A
+#
+# Usage:        $ ascii
+#
+ascii () {
+	while (( $# )); do
+		case $1 in
+			fliptable)
+				echo '(╯°□°）╯︵ ┻━┻'
+			;;
+			shrug)
+				echo '¯\_(ツ)_/¯'
+			;;
+			joyent)
+				echo "   __        .                   .
+ _|  |_      | .-. .  . .-. :--. |-
+|_    _|     ;|   ||  |(.-' |  | |
+  |__|   \`--'  \`-' \`;-| \`-' '  ' \`-'
+                   /  ;
+                   \`-'"
+			;;
+			*)
+				echo "Unsupported argument"
+			;;
+		esac
+		shift
+	done
+}

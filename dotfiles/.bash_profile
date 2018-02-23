@@ -46,7 +46,7 @@ export CURR_SSID="$(airport -I | awk '$1~/^SSID:/{print $0}' | tr -d " " | awk -
 export CURR_DAY="$(date +%a)"
 
 ### PERSONAL ###
-export SSH_INPUT='/Users/jessebutryn/Documents/scripts/shell/input/nodeinput.csv'
+export SSH_INPUT='/Users/jessebutryn/tools/.nodeinput.csv'
 if [[ "$CURR_SSID" == "Joyent-5" ]]; then
 	export MAC_LOCATION='work'
 elif [[ "$CURR_SSID" == "ITBurnsWhenIP5" ]]; then

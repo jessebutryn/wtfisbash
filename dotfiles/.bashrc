@@ -47,12 +47,13 @@ spc-manta-southeast () {
 }
 go () {
 	declare -A local goARR=(
-		[tools]='/Users/jessebutryn/Documents/scripts/shell/NOCTools'
+		[tools]='/Users/jessebutryn/tools'
 		[tmp]='/Users/jessebutryn/tmp'
 		[wtf]='/Users/jessebutryn/Documents/Reference/wtfisbash'
 		[pics]='/Users/jessebutryn/Pictures'
 		[scripts]='/Users/jessebutryn/Documents/scripts'
 		[training]='/Users/jessebutryn/Documents/Projects/Training'
+		[noc]='/Users/jessebutryn/tools/joyent/NOCTools'
 	)
 	PS3='Select a directory: '
 	if [[ -z "$1" ]]; then
@@ -78,6 +79,7 @@ go () {
 			pic*)		cd "${goARR[pics]}";;
 			scripts)	cd "${goARR[scripts]}";;
 			training)	cd "${goARR[training]}";;
+			noc)		cd "${goARR[noc]}";;
 			*)			echo "$1 is not a valid go option"; return 1;;
 		esac
 		shopt -u nocasematch
@@ -191,6 +193,9 @@ alias sshnode='/usr/local/NOCTools/noc-sshnode'
 alias vmapi='/usr/local/NOCTools/noc-vmapi'
 alias vpn='/usr/local/NOCTools/noc-vpn'
 alias zuora='/usr/local/NOCTools/noc-zuora'
+alias opschk='/Users/jessebutryn/tools/personal/opschk'
+alias man='gman'
+alias yum='brew'
 ###########################
 # Prompt Config
 ###########################

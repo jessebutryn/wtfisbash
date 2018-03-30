@@ -44,7 +44,6 @@ export NVM_DIR=/Users/jessebutryn/.nvm
 export EXTERNAL_IP="$(curl -Ss ipinfo.io/ip)"
 export CURR_SSID="$(airport -I | awk '$1~/^SSID:/{print $0}' | tr -d " " | awk -F: '{print $2}')"
 export CURR_DAY="$(date +%a)"
-
 ### PERSONAL ###
 export SSH_INPUT='/Users/jessebutryn/tools/.nodeinput.csv'
 if [[ "$CURR_SSID" == "Joyent-5" ]]; then
@@ -54,6 +53,7 @@ elif [[ "$CURR_SSID" == "ITBurnsWhenIP5" ]]; then
 else
 	export MAC_LOCATION='other'
 fi
+export WHITELIST='/joyentnoc/stor/tools/fraud/whitelist.fc'
 #####################################
 # Section 4: Information
 #####################################

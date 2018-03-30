@@ -170,6 +170,40 @@ weather () {
 		curl -Ss "wttr.in/${w_zip}" | tail -n +2 | head -n 6
 	fi
 }
+mac.notify () {
+	local okay
+	local cancel
+	local message
+	while (( $# )); do
+		case $1 in
+			-o) shift; okay=$1;;
+			-c) shift; cancel=$1;;
+			*)	message=$@;break;;
+		esac
+		shift
+	done
+	osascript <<EOF
+		set theDialogText to "${message:-"Alert!"}"
+		display dialog theDialogText buttons {"${cancel:-Cancel}", "${okay:-Okay}"} default button "${okay:-Okay}" cancel button "${cancel:-Cancel}"
+EOF
+}
+my.prompt () {
+	local prompt=$1
+	case $prompt in
+		simple)
+			export PS1="\u \W \\$ "
+		;;
+		default)
+			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
+		;;
+		nocolor)
+			export PS1="[\u]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
+		;;
+		*)
+			export PS1='\h:\W \u\$ '
+		;;
+	esac
+}
 ###########################
 # Aliases
 ###########################
@@ -199,7 +233,7 @@ alias yum='brew'
 ###########################
 # Prompt Config
 ###########################
-export PS1="\[$(tput bold)\]♕ \[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;76m\]\u\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;9m\]\h\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;15m\] ♕\[$(tput sgr0)\] [\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;208m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]\n{\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;226m\]\$?\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]} \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;33m\]➔\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+my.prompt default
 ###########################
 # Apps that mess with my
 # path are annoying

@@ -28,7 +28,12 @@ $ mapfile -t my_array < input
 
 ``` bash
 $ declare -p my_array
-declare -a my_array=([0]="This is a file containing" [1]=$'multiple lines of \twhitespace delimited' [2]="text.  Lets see how mapfile deals with" [3]="them.")
+declare -a my_array=(
+	[0]="This is a file containing" 
+	[1]=$'multiple lines of \twhitespace delimited' 
+	[2]="text.  Lets see how mapfile deals with" 
+	[3]="them."
+)
 ```
 
 ``` bash
@@ -63,7 +68,14 @@ $ readarray -t my_array < <(ls -l)
 
 ``` bash
 $ declare -p my_array
-declare -a my_array=([0]="total 0" [1]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file0" [2]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file1" [3]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file2" [4]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file3" [5]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file4")
+declare -a my_array=(
+	[0]="total 0" 
+	[1]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file0" 
+	[2]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file1" 
+	[3]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file2" 
+	[4]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file3" 
+	[5]="-rw-r--r--  1 jessebutryn  staff  0 Apr 11 15:37 file4"
+)
 ```
 
 ``` bash

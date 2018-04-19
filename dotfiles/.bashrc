@@ -56,10 +56,10 @@ go () {
 		[noc]='/Users/jessebutryn/tools/joyent/NOCTools'
 	)
 	PS3='Select a directory: '
-	if [[ -z "$1" ]]; then
+	if [[ -z $1 ]]; then
 		echo "Where do you want to go?"
 		select index in "${!goARR[@]}" Exit; do
-			case "$index" in
+			case $index in
 				Exit)
 					echo "Goodbye"
 					return 0 && break 2
@@ -72,7 +72,7 @@ go () {
 		done
 	else
 		shopt -s nocasematch
-		case "$1" in
+		case $1 in
 			tools) 		cd "${goARR[tools]}";;
 			tmp|temp) 	cd "${goARR[tmp]}";;
 			wtf*)		cd "${goARR[wtf]}";;
@@ -86,7 +86,7 @@ go () {
 	fi
 }
 smash () {
-	local T_PROC="$1"
+	local T_PROC=$1
 	local T_PIDS=($(pgrep -i "$T_PROC"))
 	if [[ "${#T_PIDS[@]}" -ge 1 ]]; then
 		echo "Found the following processes:"
@@ -112,7 +112,7 @@ smash () {
 	fi
 }
 gitacp () {
-	if [[ -z "$1" ]]; then
+	if [[ -z $1 ]]; then
 		echo "ERROR! You must specify a file to add, commit, and push."
 	else
 		declare -a GIT_FILES+=("$@")
@@ -132,7 +132,7 @@ gitacp () {
 	fi
 }
 gman () {
-	local this_command="$1"
+	local this_command=$1
 	( which -s "$this_command" ) || echo "ERROR! $this_command does not exist"
 	( man "$this_command" 2>/dev/null ) || googler "$this_command" "man page"
 }
@@ -154,13 +154,13 @@ weather () {
 		esac
 		shift
 	done
-	if [[ -z "$w_zip" ]]; then
+	if [[ -z $w_zip ]]; then
 		case $MAC_LOCATION in
 			work) w_zip=80127;;
 			home) w_zip=80123;;
 			*)
 				echo "ERROR! I don't know where you want the weather for."
-				exit 1
+				return 1
 			;;
 		esac
 	fi
@@ -204,10 +204,62 @@ my.prompt () {
 		;;
 	esac
 }
+math () {
+	while (( $# )); do
+		case $1 in
+			scale)
+				shift
+				local scale=$1
+				shift
+			;;
+			*)
+				local equation=$@
+				shift $#
+			;;
+		esac
+	done
+	if [[ -n $scale ]]; then
+		bc<<<"scale=$scale; $equation"
+	else
+		bc<<<"$equation"
+	fi
+}
+dict () {
+	less < <(
+		curl -s "dict://dict.org/d:$@" \
+		| egrep -v '^220|^221|^250|^150' \
+		| sed $'s/^151/-------------------------------\\\n/g'
+		)
+}
+ascii () {
+	while (( $# )); do
+		case $1 in
+			fliptable)
+				echo '(╯°□°）╯︵ ┻━┻'
+			;;
+			shrug)
+				echo '¯\_(ツ)_/¯'
+			;;
+			joyent)
+				echo "   __        .                   .
+ _|  |_      | .-. .  . .-. :--. |-
+|_    _|     ;|   ||  |(.-' |  | |
+  |__|   \`--'  \`-' \`;-| \`-' '  ' \`-'
+                   /  ;
+                   \`-'"
+			;;
+			*)
+				echo "Unsupported argument"
+			;;
+		esac
+		shift
+	done
+}
 ###########################
 # Aliases
 ###########################
 alias cls='clear'
+alias c='clear'
 alias ll='ls -laghFG'
 alias l='ls -laghFG'
 alias xcode='open -a xcode'
@@ -215,7 +267,6 @@ alias text='open -a Atom'
 alias pre='open -a Preview'
 alias cd..='cd ..'
 alias reload='source ~/.bash_profile'
-alias bj='~/Documents/scripts/shell/games/blackjack.bash'
 alias spc-manta-se='spc-manta-southeast'
 alias billchk='/usr/local/NOCTools/noc-billchk'
 alias cmdb='/usr/local/NOCTools/noc-cmdb'
@@ -227,9 +278,11 @@ alias sshnode='/usr/local/NOCTools/noc-sshnode'
 alias vmapi='/usr/local/NOCTools/noc-vmapi'
 alias vpn='/usr/local/NOCTools/noc-vpn'
 alias zuora='/usr/local/NOCTools/noc-zuora'
+alias notify='/usr/local/NOCTools/noc-notify'
 alias opschk='/Users/jessebutryn/tools/personal/opschk'
 alias man='gman'
 alias yum='brew'
+alias vnc='open "/Applications/Remote Desktop - VNC.app"'
 ###########################
 # Prompt Config
 ###########################

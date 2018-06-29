@@ -10,6 +10,7 @@ echo -e "==========Loading ${TXT_FAIL}bashrc${TXT_RST}=========="
 ###########################
 [[ -s "${NVM_DIR}/nvm.sh" ]] && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
 [[ -s "${NVM_DIR}/bash_completion" ]] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
+[[ -f /usr/local/bin/proutes.sh ]] && \. /usr/local/bin/proutes.sh &>/dev/null
 ###########################
 # Shell variables
 ###########################
@@ -44,6 +45,11 @@ spc-manta-southeast () {
 	export MANTA_URL="$SPC_SE_MURL"
 	export MANTA_USER="$SPC_MANTA_USER"
 	echo -e "Manta set to:\tSPC Southeast"
+}
+spc-manta-northeast () {
+	export MANTA_URL="$SPC_NE_MURL"
+	export MANTA_USER="$SPC_MANTA_USER"
+	echo -e "Manta set to:\tSPC Northeast"
 }
 go () {
 	declare -A local goARR=(
@@ -194,10 +200,10 @@ my.prompt () {
 			export PS1="\u \W \\$ "
 		;;
 		default)
-			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]\u\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
+			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]$(get.batt)\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
 		;;
 		nocolor)
-			export PS1="[\u]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
+			export PS1="[$(get.batt)]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
 		;;
 		*)
 			export PS1='\h:\W \u\$ '
@@ -255,9 +261,27 @@ ascii () {
 		shift
 	done
 }
+get.batt () {
+	local barray=($(pmset -g batt | tail -1 | awk '{print $3/1"%",$4,$5}'))
+	#local barray=($(awk '{print $3/1"%",$4,$5}' <<<"$batt"))
+	if [[ ${barray[1]/;/} == 'discharging' ]]; then
+		echo "${TXT_FAIL}${barray[0]}${TXT_RST}-${barray[2]/(no/)}"
+	else
+		echo "${TXT_GOOD}${barray[0]}${TXT_RST}"
+	fi
+}
+flip () {
+	echo "$@" | /Users/jessebutryn/tools/personal/flip.pl
+}
 ###########################
 # Aliases
 ###########################
+#for util in /usr/local/bin/g*; do
+#	if [[ -f $util ]]; then
+#		aname=$(basename "$util")
+#		alias "${aname#g}"="$util"
+#	fi
+#done
 alias cls='clear'
 alias c='clear'
 alias ll='ls -laghFG'
@@ -268,6 +292,7 @@ alias pre='open -a Preview'
 alias cd..='cd ..'
 alias reload='source ~/.bash_profile'
 alias spc-manta-se='spc-manta-southeast'
+alias spc-manta-ne='spc-manta-northeast'
 alias billchk='/usr/local/NOCTools/noc-billchk'
 alias cmdb='/usr/local/NOCTools/noc-cmdb'
 alias cnapi='/usr/local/NOCTools/noc-cnapi'
@@ -280,9 +305,12 @@ alias vpn='/usr/local/NOCTools/noc-vpn'
 alias zuora='/usr/local/NOCTools/noc-zuora'
 alias notify='/usr/local/NOCTools/noc-notify'
 alias opschk='/Users/jessebutryn/tools/personal/opschk'
+alias merika='/Users/jessebutryn/tools/personal/merika'
+alias innit='/Users/jessebutryn/tools/personal/innit'
 alias man='gman'
 alias yum='brew'
 alias vnc='open "/Applications/Remote Desktop - VNC.app"'
+alias ls='/usr/local/bin/gls --color'
 ###########################
 # Prompt Config
 ###########################

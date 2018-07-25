@@ -98,4 +98,5 @@
 * [installing a custom kernel](https://unix.stackexchange.com/q/115620/237982)
 * [running 32 bit programs on 64 bit systems](https://unix.stackexchange.com/q/12956/237982)
 * [Why was '~' chosen to represent the home directory?](https://unix.stackexchange.com/q/34196/237982)
+* [How to uninstall Linux, from a dual-booting Windows 10 PC?](https://unix.stackexchange.com/q/458461/237982)
 

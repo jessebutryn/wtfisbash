@@ -53,7 +53,6 @@ elif [[ "$CURR_SSID" == "ITBurnsWhenIP5" ]]; then
 else
 	export MAC_LOCATION='other'
 fi
-export WHITELIST='/joyentnoc/stor/tools/fraud/whitelist.fc'
 #####################################
 # Section 4: Information
 #####################################

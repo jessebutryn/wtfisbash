@@ -24,6 +24,9 @@ This is just a list of my favorite places to obtain information about bash scrip
 * [U&L Stack Exchange](https://unix.stackexchange.com/)
   * This site has become the default catch-all for bash related questions.  While they can also be posted on
   stack overflow, I believe that U&L is a much better resource for bash/shell scripting.
+* [The Unix Shell](https://archive.org/stream/byte-magazine-1983-10/1983_10_BYTE_08-10_UNIX#page/n187/mode/2up)
+  * This is an article written by Stephen Bourne about the Bourne Shell but has some good information relevant to Bash
+  and is a cool piece of history in general.
 
 ## Sources
 

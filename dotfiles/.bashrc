@@ -241,18 +241,25 @@ ascii () {
 	while (( $# )); do
 		case $1 in
 			fliptable)
-				echo '(╯°□°）╯︵ ┻━┻'
+				printf '%s' '(╯°□°）╯︵ ┻━┻' | pbcopy
+				pbpaste && echo
+			;;
+			unfliptable)
+				printf '%s' '┬─┬ノ( º _ ºノ)' | pbcopy
+				pbpaste && echo
 			;;
 			shrug)
-				echo '¯\_(ツ)_/¯'
+				printf '%s' '¯\_(ツ)_/¯' | pbcopy
+				pbpaste && echo
 			;;
 			joyent)
-				echo "   __        .                   .
+				printf '%s' "   __        .                   .
  _|  |_      | .-. .  . .-. :--. |-
 |_    _|     ;|   ||  |(.-' |  | |
   |__|   \`--'  \`-' \`;-| \`-' '  ' \`-'
                    /  ;
-                   \`-'"
+                   \`-'" | pbcopy
+				pbpaste && echo
 			;;
 			*)
 				echo "Unsupported argument"
@@ -263,7 +270,6 @@ ascii () {
 }
 get.batt () {
 	local barray=($(pmset -g batt | tail -1 | awk '{print $3/1"%",$4,$5}'))
-	#local barray=($(awk '{print $3/1"%",$4,$5}' <<<"$batt"))
 	if [[ ${barray[1]/;/} == 'discharging' ]]; then
 		echo "${TXT_FAIL}${barray[0]}${TXT_RST}-${barray[2]/(no/)}"
 	else
@@ -273,15 +279,36 @@ get.batt () {
 flip () {
 	echo "$@" | /Users/jessebutryn/tools/personal/flip.pl
 }
+noformatize () {
+	printf '%s\n' '{noformat}' "$(pbpaste)" '{noformat}' | pbcopy
+	[[ $1 == '-v' ]] && pbpaste
+	return 0
+}
+mmcode () {
+	local lang=$1
+	printf '%s\n' "\`\`\`$lang" "$(pbpaste)" '```' | pbcopy
+}
+tableize () {
+	local delim
+	local content
+	content=$(pbpaste)
+	if [[ -n $1 ]]; then
+		delim=$1
+	else
+		delim=' '
+	fi
+	awk -F"$delim" 'BEGIN{OFS="|";}{$1=$1; print "|"$0"|"}' <<<"$content" | pbcopy
+	pbpaste
+}
 ###########################
 # Aliases
 ###########################
-#for util in /usr/local/bin/g*; do
-#	if [[ -f $util ]]; then
-#		aname=$(basename "$util")
-#		alias "${aname#g}"="$util"
-#	fi
-#done
+# for util in /usr/local/bin/g*; do
+# 	if [[ -f $util ]]; then
+# 		aname=$(basename "$util")
+# 		alias "${aname#g}"="$util"
+# 	fi
+# done
 alias cls='clear'
 alias c='clear'
 alias ll='ls -laghFG'
@@ -302,15 +329,19 @@ alias mtest='/usr/local/NOCTools/noc-mtest'
 alias sshnode='/usr/local/NOCTools/noc-sshnode'
 alias vmapi='/usr/local/NOCTools/noc-vmapi'
 alias vpn='/usr/local/NOCTools/noc-vpn'
-alias zuora='/usr/local/NOCTools/noc-zuora'
+alias zuora='/usr/local/NOCTools/noc-zuora -q'
 alias notify='/usr/local/NOCTools/noc-notify'
 alias opschk='/Users/jessebutryn/tools/personal/opschk'
-alias merika='/Users/jessebutryn/tools/personal/merika'
-alias innit='/Users/jessebutryn/tools/personal/innit'
-alias man='gman'
+alias mlive='/Users/jessebutryn/tools/joyent/manta-mlive/bin/mlive'
+alias merika='/Users/jessebutryn/tools/personal/unit-conversion/merika'
+alias innit='/Users/jessebutryn/tools/personal/unit-conversion/innit'
+#alias man='gman'
 alias yum='brew'
 alias vnc='open "/Applications/Remote Desktop - VNC.app"'
 alias ls='/usr/local/bin/gls --color'
+alias noc-switches='noc-switches -q'
+alias noc-zuora='noc-zuora -q'
+alias pwatch='mjob watch -a poseidon'
 ###########################
 # Prompt Config
 ###########################

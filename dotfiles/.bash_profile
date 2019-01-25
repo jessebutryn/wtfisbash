@@ -41,7 +41,7 @@ echo -e "==========Loading ${TXT_GOOD}bash_profile${TXT_RST}=========="
 #####################################
 ### SYSTEM ###
 export NVM_DIR=/Users/jessebutryn/.nvm
-export EXTERNAL_IP="$(curl -connect-timeout 5 -m 15 -Ss ipinfo.io/ip)"
+export EXTERNAL_IP="$(curl --connect-timeout 5 -m 15 -Ss ipinfo.io/ip)"
 export CURR_SSID="$(airport -I | awk '$1~/^SSID:/{print $0}' | tr -d " " | awk -F: '{print $2}')"
 export CURR_DAY="$(date +%a)"
 ### PERSONAL ###
@@ -61,12 +61,12 @@ export WHITELIST='/joyentnoc/stor/tools/fraud/whitelist.fc'
 #MEM_USAGE="$(top -l 2 | awk '/PhysMem/{print $2, $6}')"
 case $MAC_LOCATION in
 	work)
-		curl -connect-timeout 5 -m 15 -Ss "wttr.in/80127" | tail -n +2 | head -n 6
+		curl --connect-timeout 5 -m 15 -Ss "wttr.in/80127" | tail -n +2 | head -n 6
 		echo -e "\t${TXT_WARN}Littleton, CO${TXT_RST}\n"
 		echo -e "Location:\t${TXT_FAIL}WORK${TXT_RST} | Hostname:\t${TXT_BLD}$(hostname)${TXT_RST} | Date:\t${TXT_BLD}$(date "+%m/%d/%Y %H:%M")${TXT_RST}" | column -t
 	;;
 	home)
-		curl -connect-timeout 5 -m 15 -Ss "wttr.in/80123" | tail -n +2 | head -n 6
+		curl --connect-timeout 5 -m 15 -Ss "wttr.in/80123" | tail -n +2 | head -n 6
 		echo -e "\t${TXT_GOOD}Littleton, CO${TXT_RST}\n"
 		echo -e "Location:\t${TXT_GOOD}HOME${TXT_RST} | Hostname:\t${TXT_BLD}$(hostname)${TXT_RST} | Date:\t${TXT_BLD}$(date "+%m/%d/%Y %H:%M")${TXT_RST}" | column -t
 	;;

@@ -77,6 +77,7 @@
 * [Why is using a shell loop to process text considered bad practice?](https://unix.stackexchange.com/q/169716/237982)
 * [How to add a newline to the end of a file?](https://unix.stackexchange.com/q/31947/237982)
 * [Fixing CR+LF and ^M linebreaks](https://unix.stackexchange.com/q/32001/237982)
+* [Sanitize sed lhs/rhs](https://unix.stackexchange.com/a/129063/237982)
 
 ## regex
 

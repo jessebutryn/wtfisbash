@@ -200,10 +200,10 @@ my.prompt () {
 			export PS1="\u \W \\$ "
 		;;
 		default)
-			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]$(get.batt)\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
+			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]\$(get.batt)\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
 		;;
 		nocolor)
-			export PS1="[$(get.batt)]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
+			export PS1="[\$(get.batt)]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
 		;;
 		*)
 			export PS1='\h:\W \u\$ '
@@ -269,12 +269,14 @@ ascii () {
 	done
 }
 get.batt () {
+	local lastexit=$?
 	local barray=($(pmset -g batt | tail -1 | awk '{print $3/1"%",$4,$5}'))
 	if [[ ${barray[1]/;/} == 'discharging' ]]; then
-		echo "${TXT_FAIL}${barray[0]}${TXT_RST}-${barray[2]/(no/)}"
+		echo "${TXT_FAIL}${barray[0]}${TXT_RST}-${barray[2]/\(no/}"
 	else
 		echo "${TXT_GOOD}${barray[0]}${TXT_RST}"
 	fi
+	return "$lastexit"
 }
 flip () {
 	echo "$@" | /Users/jessebutryn/tools/personal/flip.pl
@@ -340,7 +342,7 @@ alias yum='brew'
 alias vnc='open "/Applications/Remote Desktop - VNC.app"'
 alias ls='/usr/local/bin/gls --color'
 alias noc-switches='noc-switches -q'
-alias noc-zuora='noc-zuora -q'
+alias noc-zuora='noc-zuora -qs'
 alias pwatch='mjob watch -a poseidon'
 ###########################
 # Prompt Config

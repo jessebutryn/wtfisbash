@@ -499,8 +499,9 @@ with variables.
 
 ### Variables
 
-* Environmental, Shell, and Global variables should be represented in uppercase characters only.
-* Local and loop variables should be represented in lowercase characters only.
+* Environmental variables should be represented in uppercase characters only.
+* Shell and Global variables should be in lowerchase characters only.
+* Local variables should begin with an underscore `_` and be in lowercase characters only.
 * Multiple word variables should be delimited by an underscore `_`.
 
 If possible you should prefix all variables with a string representing the
@@ -509,16 +510,11 @@ script/function in order to avoid conflicts with existing variables.
 Example:
 
 ``` bash
-# Global variables
+# environmental variables
 MSHARE_LOG='/path/to/log'
 
-# Local variables
+# local variables
 my.func () {
-  local myfunc_var="$1"
+  local _myfunc_var="$1"
 }
-
-# Loop variables
-for ip in "${MY_IPS[@]}"; do
-  something with "$ip"
-done
 ```

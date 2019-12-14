@@ -14,6 +14,7 @@
 * [Difference between Login Shell and Non-Login Shell?](https://unix.stackexchange.com/q/38175/237982)
 * [Get exit status of process that's piped to another](https://unix.stackexchange.com/q/14270/237982)
 * [Difference Between: Terminal, Shell, TTY, and Console](https://unix.stackexchange.com/q/4126/237982)
+* [How to handle command line options in a script](https://unix.stackexchange.com/q/20975/237982)
 
 ### sh
 

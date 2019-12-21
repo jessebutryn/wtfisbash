@@ -5,6 +5,19 @@ of previously answered questions and this list is a quick way to find the canoni
 
 However as these are frequently asked questions this list also serves as a great reference for common UNIX/Bash issues.
 
+## Table of Contents
+
+- [Compiled list of questions](#compiled-list-of-questions)
+  * [shells](#shells)
+    + [sh](#sh)
+    + [bash](#bash)
+  * [command line](#command-line)
+  * [searching filesystems](#searching-filesystems)
+  * [text processing](#text-processing)
+  * [regex](#regex)
+  * [history](#history)
+  * [other](#other)
+
 ## shells
 
 * [where to set environmental variables](https://unix.stackexchange.com/q/3052/237982)

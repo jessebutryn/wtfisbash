@@ -3,6 +3,9 @@
 This section contains a list of functions that I have found useful.  Most of these live in my `.bashrc` file but some are common
 additions to the scripts that I write.
 
+
+## Table of Contents
+
 - [Functions](#functions)
   * [err](#err)
   * [yorn_ask](#yorn_ask)

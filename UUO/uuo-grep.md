@@ -16,3 +16,5 @@ Why spawn the `grep` process when you can do this:
 ``` bash
 ps -l | awk '!/[a]wk/{print $2}'
 ```
+
+[Go back](./uuos.md)

@@ -14,3 +14,4 @@ command | grep '..*' | wc -l
 command | grep -c .
 ```
 
+[Go back](./uuos.md)

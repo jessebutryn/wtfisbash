@@ -53,7 +53,7 @@ Based on this [article](http://porkmail.org/era/unix/award.html)
 cat file
 ```
 
-This is an extreme security risk at worst and very inefficient at best.
+This is a security risk at worst and very inefficient at best.
 
 * [CVE-2003-0063](https://nvd.nist.gov/vuln/detail/CVE-2003-0063)
 * [CVE-2008-2383](https://nvd.nist.gov/vuln/detail/CVE-2008-2383)
@@ -63,7 +63,7 @@ This is an extreme security risk at worst and very inefficient at best.
 * [More Reading](https://www.securityfocus.com/archive/1/archive/1/508830/100/0/threaded)
 
 You should instead use a tool designed for both identifying and reading text files, such as:
-`less`, `more`, `tail`, `head`, `vi`, `nano`
+`less`, `more`, `tail`, `head`, `vim`
 
 These tools will error out if you attempt to open a non-text file with them preventing potentially dangerous and
 undesirable results.
@@ -87,3 +87,7 @@ sed 's/string1/string2/' <<<"$VAR"
 
 awk '{print $1}' <<<"$VAR"
 ```
+
+* note: here strings are not defined by POSIX and therefore may not be available in non-bash shells.
+
+[Go back](./uuos.md)

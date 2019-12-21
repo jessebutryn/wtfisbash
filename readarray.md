@@ -9,13 +9,14 @@ directly, or from process substitution.  In any case you can use either
 
 ### Sample input 1 
 
-```
+``` bash
 $ cat input
 This is a file containing
 multiple lines of 	whitespace delimited
 text.  Lets see how mapfile deals with
 them.
 ```
+
 (Yes I just used cat inappropriately)
 
 ### Create array 1

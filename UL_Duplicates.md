@@ -1,5 +1,9 @@
 # Compiled list of questions
->This list is compiled mostly from the answers below and some of my own, and is intended to be a quick reference for these questions.
+
+This list was initially compiled as a quick reference for the Unix & Linux stack exchange.  New questions are often duplicates
+of previously answered questions and this list is a quick way to find the canonical Q/A that should be used to close the duplicate.
+
+However as these are frequently asked questions this list also serves as a great reference for common UNIX/Bash issues.
 
 ## shells
 
@@ -102,3 +106,4 @@
 * [Why was '~' chosen to represent the home directory?](https://unix.stackexchange.com/q/34196/237982)
 * [How to uninstall Linux, from a dual-booting Windows 10 PC?](https://unix.stackexchange.com/q/458461/237982)
 
+[Go back](./README.md)

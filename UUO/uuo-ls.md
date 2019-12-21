@@ -13,3 +13,5 @@ done
 
 find /full/pathto/dir -type f -name "*" -exec command {} \;
 ```
+
+[Go back](./uuos.md)

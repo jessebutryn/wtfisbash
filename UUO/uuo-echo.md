@@ -52,7 +52,7 @@ echo
 echo "So I have added a useless echo after it"
 ```
 
-Using `echo` in this way can sometimes be valid, however it is unecessary after any previous `echo` command.  This is
+Using `echo` in this way can sometimes be valid, however it is unnecessary after any previous `echo` command.  This is
 because `echo` when used with the `-e` switch, is capable of interpreting the following escapes:
 
 * \a    alert (bell)
@@ -73,3 +73,5 @@ because `echo` when used with the `-e` switch, is capable of interpreting the fo
 ``` bash
 echo -e "I have some text that should be followed by an empty line\n\nBut I no longer need the useless echo"
 ```
+
+[Go back](./uuos.md)

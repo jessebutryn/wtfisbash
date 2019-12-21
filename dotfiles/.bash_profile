@@ -83,7 +83,7 @@ case $CURR_DAY in
 		echo "${TXT_BLD}$(fortune -o)${TXT_RST}"
 		;;
 	Wed)	echo -e "\t\t\t\tWednesday:\n\t\t${TXT_FAIL}Oh shit...just starting${TXT_RST}"
-		echo "${TXT_BLD}$(fortune -o)${TXT_RST}"
+		echo "${TXT_BLD}$(fortune)${TXT_RST}"
 		;;
 	Thu)	echo -e "\t\t\t\tThursday:\n\t\t${TXT_WARN}Everything will break today, bet.${TXT_RST}"
 		echo "${TXT_BLD}$(fortune)${TXT_RST}"
@@ -92,9 +92,12 @@ case $CURR_DAY in
 		echo "${TXT_BLD}$(fortune)${TXT_RST}"
 		;;
 	Sat)	echo -e "\t\t\t\tSaturday:\n\t\t${TXT_GOOD}This is it...don't burn the place down!${TXT_RST}"
-		echo "${TXT_BLD}$(fortune -o)${TXT_RST}"
+		echo "${TXT_BLD}$(fortune)${TXT_RST}"
 		;;
 esac
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" | tr ' ' .
+echo "History on today's date:"
+awk -v td="$(date '+%m/%d')" '$1 == td' /usr/share/calendar/calendar.history
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" | tr ' ' .
 echo -e "Network:\t${TXT_WARN}$CURR_SSID${TXT_RST} | Channel:\t${TXT_BLD}$(airport -I | awk '/channel/{print $NF}')${TXT_RST} | External IP:\t${TXT_BLD}$EXTERNAL_IP${TXT_RST}" | column -t
 printf '%*s\n' "${COLUMNS:-$(tput cols)}" | tr ' ' .
@@ -106,3 +109,4 @@ printf '%*s\n' "${COLUMNS:-$(tput cols)}" | tr ' ' .
 [[ -f ~/.bashrc ]] && source ~/.bashrc
 [[ $PRIVATERC_RUN != yes && -f ~/.privaterc ]] && source ~/.privaterc
 echo
+export PATH="$HOME/.cargo/bin:$PATH"

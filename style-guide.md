@@ -76,7 +76,7 @@ builtin command.
 ### Extensions
 
 * Executable scripts should have no extension.
-* Libraries must have a `.sh` extension and should not be executable.
+* Libraries and config files must have a `.sh` extension and should not be executable.
 
 ## Environment
 
@@ -84,20 +84,7 @@ builtin command.
 
 Your hash bang (shebang) should be written as follows:
 
-`[shebang][space][interpreter][space][argument|-]`
-
-``` bash
-# Incorrect
-#!/bin/bash
-
-# Correct
-#! /bin/bash -
-
-# Even More Correct
-#! /usr/bin/env bash -
-```
-
-[Why?](https://unix.stackexchange.com/questions/351729/why-the-in-the-bin-sh-shebang)
+`#!/usr/bin/env bash`
 
 Whenever possible (always?) you should use env rather than point to a specific
 bash.  `/bin/bash` does not exist on all systems.  There is no need to guess
@@ -111,67 +98,45 @@ The following function is recommended for handling error messages:
 
 ``` bash
 echo.error () {
-  TXT_RED="$(tput setaf 1)"
-  TXT_RST="$(tput sgr0)"
+  red="$(tput setaf 1)"
+  rst="$(tput sgr0)"
   if [[ "$1" == '-e' ]]; then
     shift
-    echo -e "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+    echo -e "${red}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${rst}" >&2
   else
-    echo "${TXT_RED}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${TXT_RST}" >&2
+    echo "${red}[$(date +'%Y%m%dT%H%M%S%Z')]: $@ ${rst}" >&2
   fi
 }
 ```
 
 ## Comments
 
-Comments should essentially be overused.  It's safe to assume that the next
+Make meaningful comments!  It's safe to assume that the next
 person to look at your code will not be thinking the same thoughts you are.
 For this reason you should attempt to make as many detailed comments as needed
-to ensure that every aspect of your script is explained in detail.
+to ensure that every aspect of your script is explained in full.
 
 ### File Header
 
 Each file should start with a standardized header containing at least the
 following information:
 
+* Hashbang
 * Copyright Notice 
-  * Yes -- your work is copywritten, as soon as you write it.
-    [source](http://www.copyrightkids.org/copyrightbasics.html)
+  * Yes -- your work is [copywritten](http://www.copyrightkids.org/copyrightbasics.html), as soon as you write it.
 * Description of intent
   * What does this file do? ...or at least what *should* it do?
-* The Author's name
-  * Accountability
-* Table of Contents
-  * Some effort should be made to break the script into separate sections.
-  * Some examples of these sections: variables, functions, switches, run
 
 Example:
 
 ``` bash
-#! /usr/bin/env bash -
-#set -x
+#!/usr/bin/env bash
+# set -x
 #
 # Copyright (c) 2017 Joyent Inc.
 #
-# This script can upload files to Manta as well as generate signed URLs for sharing.
+# This script will save the world from an invasion of evil howler monkeys.
 # 
-# 
-# Author: Jesse Butryn <jesse.butryn@joyent.com>
-#
-# 12/20/2017    -       Rewrite
-# 12/21/2017	-	Made the error messages for failure more verbose. is.validexp was using an
-#				invalid comparison operator.
-#
-##############################
-# Table of Contents
-##############################
-#
-# 1) Variables
-# 2) Functions
-# 3) Arguments
-# 4) Checks
-# 5) Run
-#
 ```
 
 ### Functions
@@ -224,8 +189,8 @@ That being said, you should use **TABS** and they should be defined as 4 spaces.
 
 ### Column Width
 
-You know what?  It's no longer 1984...if you want your columns to be more than 80 characters, go for it!
-If you come across someone still using 640x480 screen resolution...stop sharing your scripts with them.
+You know what?  It's no longer 1928...if you want your columns to be more than 80 characters, go for it!
+If you come across someone still using IBM punch cards...please let me know because that's amazing.
 
 I say go ahead, get crazy, and limit your columns to 120 characters...we can live like kings!
 
@@ -260,15 +225,17 @@ Although functionally there is no difference, this method is shorter.
 Example:
 
 ``` bash
-# Long
-for f in "$HOME"/*.txt
-do
-        ...
-done
-
-# Short
 if [[ condition ]]; then
-        ...
+  ...
+fi
+```
+
+An exception would be if your condition is too long to fit in a single line, such as:
+
+``` bash
+if [[ some_long_thing == some_other_long_thing || -z more_conditions ]]
+do
+  ...
 fi
 ```
 
@@ -276,39 +243,37 @@ fi
 
 * Expressions should be indented one tab from the case/esac
 * One-line commands can be placed on the same line as the expression
-  * One space is required after the close parenthesis and before the `;;`
 * Multi-line commands should start one line after and indented one tab from their expression.
 * All case statements should include the `*)` expression as a catch all for unexpected expressions
+* It is not required to quote the parameter in case since it does not undergo word splitting
+
+#### Short
 
 ``` bash
-# One-liners
-verbose='false'
-aflag=''
-bflag=''
-files=''
-while getopts 'abf:v' flag; do
-  case "${flag}" in
-    a) aflag='true' ;;
-    b) bflag='true' ;;
-    f) files="${OPTARG}" ;;
-    v) verbose='true' ;;
-    *) echo.error "Unexpected option ${flag}" ;;
-  esac
-done
+case $word in
+  a) command ;;
+  b) command ;;
+  f) command ;;
+  v) command ;;
+  *) echo.error "Unexpected input: $word" ;;
+esac
+```
 
-# Multi-liners
-case "$expression" in
-	match1)
-		command1
-		command2
-		;;
-	match2)
-		command1
-		command2
-		;;
-	*)
-		echo.error "Unexpected expression $expression"
-		;;
+#### Long
+
+``` bash
+case $word in
+  match1)
+    command1
+    command2
+  ;;
+  match2)
+    command1
+    command2
+  ;;
+  *)
+    echo.error "Unexpected input: $word"
+  ;;
 esac
 ```
 
@@ -354,8 +319,11 @@ sed "${MY_ARGS[@]}" "$file"
 
 ### Listing Files
 
-You should never [parse ls](http://mywiki.wooledge.org/ParsingLs).  So why are you doing it 
-[Google](https://google.github.io/styleguide/shell.xml?showone=Variable_expansion#Variable_expansion)?
+* You should never [parse ls](http://mywiki.wooledge.org/ParsingLs).
+* You should use shell globbing instead and when possible you should point to an absolute or relative path
+rather than simply globbing.
+* Additionally you should add some logic where possible to verify the file(s) you are performing actions on are
+correct.
 
 ``` bash
 # Incorrect -- and unsafe
@@ -363,7 +331,7 @@ for f in $(ls); do
 	...
 done
 
-# Incorrect -- and unsafe
+# Correct but not ideal
 for f in *; do
 	...
 done
@@ -390,7 +358,7 @@ Example:
 var=`...`
 
 # Do
-var="$(...)"
+var=$(...)
 ```
 
 ### Tests
@@ -408,52 +376,52 @@ Additionally the `[[` test construct supports limited regex pattern matching.
 Since we are using the bash test `[[` and not that old shell test `[`,
 we can take advantage of bash's ability to deal with empty strings.  Because of
 this you _should not_ use filler characters, but instead use bash string
-comparison operators: _=_, _==_, _!=_, _<_, _>_, _-z_, _-n_
+comparison operators:  _==_, _!=_, _-z_, _-n_
 
 Example:
 
 ``` bash
-# Not Okay
+# Not Correct
 if [[ "${my_var}x" == "a stringx" ]]; then
     ...
 fi
 
-# Okay
+# Correct
 if [[ "$my_var" == "a string" ]]; then
     ...
 fi
 
-# Not Okay
+# Not Correct
 if [[ "$my_var" == "" ]]; then
     ...
 fi
 
-# Okay
+# Correct
 if [[ -z "$my_var" ]]; then
     ...
 fi
 
-# Not Okay
+# Not Correct
 if [[ "$my_var" ]]; then
     ...
 fi
 
-# Okay
+# Correct
 if [[ -n "$my_var" ]]; then
     ...
 fi
 ```
 
-### Wildcard Expansion
+### Globbing
 
-Always use a path with wildcards.  A full path is preferred, but at the very
+Always use a path when globbing.  A full path is preferred, but at the very
 least you should use a relative path.  Additionally, if possible, you should
 add as many patterns to match as you can to narrow the potential results.
 
 As filenames could start with `-` or even more malicious patterns, whenever you
-are using wildcard expansion to iterate over filenames you should terminate
+are using glkobbing to iterate over filenames you should terminate
 your command arguments with `--` to ensure nothing that follows will be
-interpreted as a switch.
+interpreted as an option.
 
 ``` bash
 # Pretend your directory contains:
@@ -493,9 +461,7 @@ Avoid it at all costs.
 ### Functions
 
 Function names should be all lowercase characters as they emulate commands,
-which are traditionally represented in lowercase letters.  Multi-word functions
-should be delimited by a dot `.` rather than an underscore `_` to avoid confusion
-with variables.
+which are traditionally represented in lowercase letters.
 
 ### Variables
 

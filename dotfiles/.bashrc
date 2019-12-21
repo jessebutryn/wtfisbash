@@ -1,6 +1,7 @@
 # .bashrc
 # Author:  Jesse Butryn <jesse.butryn>
 #
+#set -x
 ###########################
 # Start
 ###########################
@@ -144,14 +145,14 @@ gman () {
 }
 weather () {
 	local w_opts=
-	local w_zip=
+	local w_loc=
 	while (( $# )); do
 		case $1 in
 			-a)
 				local w_opts=ALL
 			;;
 			[0-9][0-9][0-9][0-9][0-9])
-				local w_zip=$1
+				local w_loc=$1
 			;;
 			*)
 				echo "ERROR! Unknown option: $1"
@@ -160,10 +161,10 @@ weather () {
 		esac
 		shift
 	done
-	if [[ -z $w_zip ]]; then
+	if [[ -z "$w_loc" ]]; then
 		case $MAC_LOCATION in
-			work) w_zip=80127;;
-			home) w_zip=80123;;
+			work) w_loc=littleton;;
+			home) w_loc=littleton;;
 			*)
 				echo "ERROR! I don't know where you want the weather for."
 				return 1
@@ -171,9 +172,9 @@ weather () {
 		esac
 	fi
 	if [[ "$w_opts" == ALL ]]; then
-		curl -Ss "wttr.in/${w_zip}"
+		curl -Ss "wttr.in/${w_loc}"
 	else
-		curl -Ss "wttr.in/${w_zip}" | tail -n +2 | head -n 6
+		curl -Ss "wttr.in/${w_loc}" | tail -n +2 | head -n 6
 	fi
 }
 mac.notify () {
@@ -193,17 +194,32 @@ mac.notify () {
 		display dialog theDialogText buttons {"${cancel:-Cancel}", "${okay:-Okay}"} default button "${okay:-Okay}" cancel button "${cancel:-Cancel}"
 EOF
 }
+parse_git_branch () {
+  local branch
+	branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
+	if [[ -n "$branch" && "$branch" == '(master)' ]]; then
+		printf '%s' "${TXT_BLD}:${TXT_RST}${TXT_GOOD}${branch}${TXT_RST}"
+	elif [[ -n "$branch" ]]; then
+		printf '%s' "${TXT_BLD}:${TXT_RST}${TXT_FAIL}${branch}${TXT_RST}"
+	fi
+}
 my.prompt () {
 	local prompt=$1
+	local open="\[${TXT_GOOD}\][\[${TXT_RST}\]"
+	local close="\[${TXT_GOOD}\]]\[${TXT_RST}\]"
+	local col="\[${TXT_BLD}\]:\[${TXT_RST}\]"
 	case $prompt in
 		simple)
 			export PS1="\u \W \\$ "
 		;;
 		default)
-			export PS1="[\[$(tput bold)\]\[\033[38;5;2m\]\$(get.batt)\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\][\[$(tput bold)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]]\[$(tput bold)\]:\[$(tput sgr0)\]{\[$(tput bold)\]\[\033[38;5;11m\]\$?\[$(tput sgr0)\]}\n\[$(tput bold)\]\\$\[$(tput sgr0)\] "
+			export PS1="\[${TXT_BLD}\]{\[${TXT_RST}\]\[${TXT_WARN}\]\$?\[${TXT_RST}\]\[${TXT_BLD}\]}\[${TXT_RST}\]${col}${open}\[${TXT_YLW}\]\$(get.batt)\[${TXT_RST}\]${close}${col}${open}\w${close}${col}${open}\[${TXT_GRN}\]\$(TZ=UTC date '+%FT%TZ')\[${TXT_RST}\]${close}\$(parse_git_branch)\n\[${TXT_FAIL}\]\$ \[${TXT_RST}\]"
 		;;
 		nocolor)
 			export PS1="[\$(get.batt)]:[\w]:{\$?}\n\\$ \[$(tput sgr0)\]"
+		;;
+		ss)
+			export PS1="\\$ "
 		;;
 		*)
 			export PS1='\h:\W \u\$ '
@@ -302,6 +318,13 @@ tableize () {
 	awk -F"$delim" 'BEGIN{OFS="|";}{$1=$1; print "|"$0"|"}' <<<"$content" | pbcopy
 	pbpaste
 }
+exit () {
+	if [[ $SHLVL -eq 1 ]] && [[ $BASHPID == $$ ]]; then
+		printf '%s\n' "Nice try!" >&2
+	else
+		command exit $1
+	fi
+}
 ###########################
 # Aliases
 ###########################
@@ -333,6 +356,7 @@ alias vmapi='/usr/local/NOCTools/noc-vmapi'
 alias vpn='/usr/local/NOCTools/noc-vpn'
 alias zuora='/usr/local/NOCTools/noc-zuora -q'
 alias notify='/usr/local/NOCTools/noc-notify'
+alias addmaint='/usr/local/NOCTools/noc-addmaint'
 alias opschk='/Users/jessebutryn/tools/personal/opschk'
 alias mlive='/Users/jessebutryn/tools/joyent/manta-mlive/bin/mlive'
 alias merika='/Users/jessebutryn/tools/personal/unit-conversion/merika'
@@ -344,6 +368,9 @@ alias ls='/usr/local/bin/gls --color'
 alias noc-switches='noc-switches -q'
 alias noc-zuora='noc-zuora -qs'
 alias pwatch='mjob watch -a poseidon'
+alias ndate='node /Users/jessebutryn/tools/personal/ndate/ndate.js'
+alias gchoocher=/Users/jessebutryn/tools/personal/gchoocher/bin/gchoocher
+alias skookumq=/Users/jessebutryn/tools/personal/skookumQ/bin/skookumq
 ###########################
 # Prompt Config
 ###########################
@@ -352,5 +379,5 @@ my.prompt default
 # Apps that mess with my
 # path are annoying
 ###########################
-PATH=/usr/local/NOCTools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/jessebutryn/.nvm/versions/node/v6.11.5
+PATH=/usr/local/NOCTools:/Users/jessebutryn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/jessebutryn/.nvm/versions/node/v6.11.5
 export PATH
